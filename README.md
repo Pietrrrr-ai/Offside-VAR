@@ -40,7 +40,14 @@ Het is een statische site zonder build-stap; ES-modules vereisen wel een webserv
 npm start            # of: python3 -m http.server 8080
 ```
 
-Open daarna http://localhost:8080. Voor gebruik op je telefoon kun je de repo publiceren via GitHub Pages (Settings → Pages → branch kiezen).
+Open daarna http://localhost:8080.
+
+## Online (GitHub Pages)
+
+De workflow `.github/workflows/pages.yml` draait bij elke push de tests en zet de app daarna online op
+https://pietrrrr-ai.github.io/Offside-VAR/
+
+Eenmalig nodig: **Settings → Pages → Build and deployment → Source: GitHub Actions**. Daarna de workflow opnieuw draaien (Actions → *Deploy naar GitHub Pages* → *Run workflow*). Let op: voor een privé-repo werkt GitHub Pages alleen met een betaald GitHub-abonnement; anders moet de repo openbaar zijn.
 
 ## Tests
 
