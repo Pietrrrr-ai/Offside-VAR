@@ -1,0 +1,116 @@
+:root {
+  --bg: #0f1a14;
+  --panel: #17261d;
+  --panel-2: #1f3327;
+  --text: #e8f1ea;
+  --muted: #9db3a4;
+  --accent: #3ddc84;
+  --att: #ff4d4d;
+  --def: #4da3ff;
+  --ball: #ffd84d;
+  --line: #d07bff;
+  --offside: #ff5c5c;
+  --onside: #3ddc84;
+  --doubt: #ffb84d;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.top { padding: 16px 20px 4px; }
+.top h1 { margin: 0; font-size: 1.6rem; letter-spacing: .02em; }
+.tagline { margin: 4px 0 0; color: var(--muted); }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 16px;
+  padding: 16px 20px 32px;
+}
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); padding: 12px 16px 24px; }
+}
+
+.stage-panel { min-width: 0; }
+
+.upload {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 18px; border: 2px dashed #355a43; border-radius: var(--radius);
+  background: var(--panel);
+}
+.upload.drag { border-color: var(--accent); }
+.upload-btn {
+  background: var(--accent); color: #062312; font-weight: 600;
+  padding: 10px 16px; border-radius: 8px; cursor: pointer;
+}
+.hint { color: var(--muted); }
+
+.video-controls { margin-top: 12px; }
+.video-controls video { width: 100%; max-height: 50vh; background: #000; border-radius: var(--radius); }
+
+.canvas-wrap { margin-top: 12px; }
+#canvas {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--radius); background: #000;
+  touch-action: none; cursor: crosshair;
+}
+
+.status { color: var(--muted); font-size: .9rem; }
+
+.row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+button, select {
+  font: inherit; color: var(--text);
+  background: var(--panel-2); border: 1px solid #2f4a39;
+  border-radius: 8px; padding: 8px 12px; cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: progress; }
+button.primary { background: var(--accent); color: #062312; font-weight: 600; border-color: var(--accent); }
+
+.side-panel { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card { background: var(--panel); border-radius: var(--radius); padding: 14px; }
+.card h2 { margin: 0 0 10px; font-size: 1rem; }
+
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.tool { display: flex; align-items: center; gap: 8px; text-align: left; }
+.tool.active { border-color: var(--accent); background: #24402f; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex: none; }
+.dot.att { background: var(--att); }
+.dot.def { background: var(--def); }
+.dot.ball { background: var(--ball); }
+.dot.line { background: var(--line); border-radius: 2px; height: 4px; }
+.help { color: var(--muted); font-size: .85rem; margin: 8px 0 0; min-height: 2.5em; }
+
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; color: var(--muted); font-size: .9rem; }
+.field select { color: var(--text); }
+.seg { display: flex; gap: 6px; }
+.seg-btn { flex: 1; }
+.seg-btn.active { border-color: var(--accent); background: #24402f; }
+.check { display: flex; gap: 8px; align-items: center; font-size: .9rem; }
+
+.gauge-bar { position: relative; height: 14px; border-radius: 7px; background: linear-gradient(90deg, var(--onside), var(--doubt), var(--offside)); opacity: .35; }
+.gauge-fill { position: absolute; top: -4px; width: 4px; height: 22px; background: #fff; border-radius: 2px; left: 50%; transform: translateX(-2px); display: none; }
+.gauge-mid { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #fff5; }
+.gauge.has-value .gauge-bar { opacity: 1; }
+.gauge.has-value .gauge-fill { display: block; }
+.gauge-labels { display: flex; justify-content: space-between; color: var(--muted); font-size: .8rem; margin-top: 4px; }
+.pct { font-size: 2.4rem; font-weight: 700; margin: 8px 0 0; }
+.verdict { font-size: 1.1rem; font-weight: 600; margin: 2px 0 6px; }
+.verdict.offside, .pct.offside { color: var(--offside); }
+.verdict.onside, .pct.onside { color: var(--onside); }
+.verdict.doubt, .pct.doubt { color: var(--doubt); }
+.detail { color: var(--muted); font-size: .9rem; margin: 0; }
+.notes { color: var(--muted); font-size: .85rem; padding-left: 18px; margin: 8px 0 0; }
+
+.how summary { cursor: pointer; font-weight: 600; }
+.how ol { padding-left: 18px; }
+.how li, .how p { font-size: .9rem; color: var(--muted); }
+.how b { color: var(--text); }

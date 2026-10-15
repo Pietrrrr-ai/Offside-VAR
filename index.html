@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Offside VAR</title>
+  <meta name="description" content="Schat met een foto of video-frame de kans op buitenspel in.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Offside VAR</h1>
+    <p class="tagline">Upload een foto of video, markeer de spelers en krijg een inschatting van de kans op buitenspel.</p>
+  </header>
+
+  <main class="layout">
+    <section class="stage-panel">
+      <div class="upload" id="upload">
+        <label class="upload-btn">
+          <input type="file" id="fileInput" accept="image/*,video/*" hidden>
+          Kies foto of video
+        </label>
+        <span class="hint">of sleep een bestand hierheen</span>
+      </div>
+
+      <div class="video-controls" id="videoControls" hidden>
+        <video id="video" playsinline muted controls></video>
+        <div class="row">
+          <button type="button" id="stepBack" title="Eén frame terug">◀ frame</button>
+          <button type="button" id="stepFwd" title="Eén frame vooruit">frame ▶</button>
+          <button type="button" id="grabFrame" class="primary">Gebruik dit frame (moment van de pass)</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrap" id="canvasWrap" hidden>
+        <canvas id="canvas"></canvas>
+      </div>
+      <p class="status" id="status">Nog geen beeld geladen.</p>
+    </section>
+
+    <aside class="side-panel">
+      <div class="card">
+        <h2>1. Markeren</h2>
+        <div class="tools" role="radiogroup" aria-label="Markeergereedschap">
+          <button type="button" class="tool active" data-tool="attacker"><span class="dot att"></span>Aanvaller</button>
+          <button type="button" class="tool" data-tool="defender"><span class="dot def"></span>Verdediger</button>
+          <button type="button" class="tool" data-tool="ball"><span class="dot ball"></span>Bal</button>
+          <button type="button" class="tool" data-tool="line"><span class="dot line"></span>Referentielijn</button>
+          <button type="button" class="tool" data-tool="erase">✕ Wissen</button>
+        </div>
+        <p class="help" id="toolHelp"></p>
+        <div class="row">
+          <button type="button" id="detectBtn">Detecteer spelers (AI)</button>
+          <button type="button" id="clearBtn">Alles wissen</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Situatie</h2>
+        <label class="field">Aanvalsrichting in beeld
+          <span class="seg">
+            <button type="button" class="seg-btn" data-dir="left">← links</button>
+            <button type="button" class="seg-btn active" data-dir="right">rechts →</button>
+          </span>
+        </label>
+        <label class="field">Camerastand
+          <select id="camera">
+            <option value="inline">Op lijn met de verdediger</option>
+            <option value="slight" selected>Licht schuin</option>
+            <option value="strong">Sterk schuin / vanaf achter het doel</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="ownHalf"> Aanvaller staat op eigen helft</label>
+      </div>
+
+      <div class="card result" id="result">
+        <h2>3. Uitslag</h2>
+        <div class="gauge">
+          <div class="gauge-bar"><div class="gauge-fill" id="gaugeFill"></div><div class="gauge-mid"></div></div>
+          <div class="gauge-labels"><span>Geen buitenspel</span><span>Buitenspel</span></div>
+        </div>
+        <p class="pct" id="pct">–</p>
+        <p class="verdict" id="verdict">Markeer een aanvaller en minstens één verdediger.</p>
+        <p class="detail" id="detail"></p>
+        <ul class="notes" id="notes"></ul>
+      </div>
+
+      <details class="card how">
+        <summary>Hoe werkt het?</summary>
+        <ol>
+          <li><b>Aanvaller</b>: klik op het voorste lichaamsdeel waarmee gescoord mag worden (geen armen), meestal de voet of knie.</li>
+          <li><b>Verdediger</b>: klik op het achterste lichaamsdeel van de voorlaatste verdediger. Markeer je er meer (bijv. ook de keeper), dan kiest de app zelf de voorlaatste.</li>
+          <li><b>Referentielijnen</b> (sterk aanbevolen): teken twee lijnen die in het echt parallel lopen aan de doellijn: de 16-meterlijn, de 5-meterlijn, de middellijn of de maaibanen in het gras. Daarmee corrigeert de app voor een camera die niet op lijn staat.</li>
+          <li><b>Detecteer spelers</b> laat een AI-model de spelers vinden. Klik je daarna binnen een speler, dan gebruikt de app zijn lengte (~1,80 m) als schaal om de afstand in meters te schatten.</li>
+        </ol>
+        <p>De kans is een inschatting: de app rekent de afstand tot de buitenspellijn uit en houdt rekening met onzekerheid door camerastand, markeerfouten en (bij video) het exacte moment van de pass. Geen officiële VAR!</p>
+      </details>
+    </aside>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

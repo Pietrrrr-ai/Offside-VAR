@@ -1,0 +1,11 @@
+{
+  "name": "offside-var",
+  "version": "1.0.0",
+  "description": "Webapp die op basis van een foto of video-frame de kans op buitenspel inschat.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "start": "npx --yes http-server -p 8080 -c-1 ."
+  }
+}
